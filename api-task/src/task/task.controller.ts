@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { TaskDTO } from './dto/task.dto';
 import { TaskService } from './task.service';
 
@@ -15,14 +23,20 @@ export class TaskController {
     return this.taskService.findAll();
   }
 
-  //  @Post(':id/description/:description/isdone/:isdone')
-  //   methodParams(
-  //     @Param('id') id: number,
-  //     @Param('description') description: string,
-  //     @Param('isdone') isdone: string,
-  //   ) {
-  //     return { id, description, isdone };
-  //   }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.taskService.findOne(id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() taskDTO: TaskDTO) {
+    return this.taskService.update(id, taskDTO);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.taskService.delete(id);
+  }
 
   //   @Get('done')
   //   done(@Req() req: Request) {

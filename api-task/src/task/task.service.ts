@@ -18,4 +18,19 @@ export class TaskService {
   findAll(): ITask[] {
     return this.tasks;
   }
+
+  findOne(id: string): ITask {
+    return this.tasks.find((task) => task.id === id);
+  }
+
+  update(id: string, taskDTO: TaskDTO): ITask {
+    const newTask = { id, ...taskDTO };
+    this.tasks = this.tasks.map((task) => (task.id === id ? newTask : task));
+    return newTask;
+  }
+
+  delete(id: string): ITask[] {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+    return this.tasks;
+  }
 }
