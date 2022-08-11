@@ -1,8 +1,11 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -15,7 +18,12 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
   @Post()
   create(@Body() taskDTO: TaskDTO) {
-    return this.taskService.create(taskDTO);
+    // throw new BadRequestException('Error');
+    // throw new HttpException('Error', HttpStatus.BAD_REQUEST);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => reject('Error peticion'), 2000);
+    });
+    // return this.taskService.create(taskDTO);
   }
 
   @Get()
