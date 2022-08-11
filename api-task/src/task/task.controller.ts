@@ -21,7 +21,7 @@ export class TaskController {
     // throw new BadRequestException('Error');
     // throw new HttpException('Error', HttpStatus.BAD_REQUEST);
     return new Promise((resolve, reject) => {
-      setTimeout(() => reject('Error peticion'), 2000);
+      setTimeout(() => reject('Something was wrong'), 15000);
     });
     // return this.taskService.create(taskDTO);
   }
