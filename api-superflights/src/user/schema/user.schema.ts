@@ -10,5 +10,5 @@ export const UserSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-UserSchema.index({ userName: 1 }, { unique: true });
-UserSchema.index({ email: 1 }, { unique: true });
+// UserSchema.index({ userName: 1 }, { unique: true });
+// UserSchema.index({ email: 1 }, { unique: true });
