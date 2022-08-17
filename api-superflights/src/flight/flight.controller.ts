@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import { FlightDTO } from './dto/flight.dto';
 import { FlightService } from './flight.service';
 import { PassengerService } from '../passenger/passenger.service';
@@ -13,36 +14,37 @@ import {
   Put,
 } from '@nestjs/common';
 
+@ApiTags('flight')
 @Controller('api/v1/flight')
 export class FlightController {
   constructor(
-    private readonly FlightService: FlightService,
+    private readonly flightService: FlightService,
     private readonly passengerService: PassengerService,
   ) {}
 
   @Post()
   create(@Body() FlightDTO: FlightDTO) {
-    return this.FlightService.create(FlightDTO);
+    return this.flightService.create(FlightDTO);
   }
 
   @Get()
   findAll() {
-    return this.FlightService.findAll();
+    return this.flightService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.FlightService.findOne(id);
+    return this.flightService.findOne(id);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() FlightDTO: FlightDTO) {
-    return this.FlightService.update(id, FlightDTO);
+    return this.flightService.update(id, FlightDTO);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.FlightService.delete(id);
+    return this.flightService.delete(id);
   }
 
   @Post(':flightID/passenger/:passengerId')
@@ -54,6 +56,6 @@ export class FlightController {
     if (!passenger) {
       throw new HttpException('Passenger not found', HttpStatus.NOT_FOUND);
     }
-    return this.FlightService.addPassenger(flightID, passengerId);
+    return this.flightService.addPassenger(flightID, passengerId);
   }
 }
