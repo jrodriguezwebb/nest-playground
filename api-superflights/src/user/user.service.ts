@@ -15,6 +15,10 @@ export class UserService {
     return await bcrypt.hash(password, salt);
   }
 
+  async checkPassword(password: string, passwordDb: string): Promise<boolean> {
+    return await bcrypt.compare(password, passwordDb);
+  }
+
   async create(userDTO: UserDTO): Promise<UserInterface> {
     const hash = await this.hashPasword(userDTO.password);
     const newUser = new this.model({ ...userDTO, password: hash });
@@ -27,6 +31,10 @@ export class UserService {
 
   async findOne(id: string): Promise<UserInterface> {
     return await this.model.findById(id);
+  }
+
+  async findByUserName(userName: string): Promise<UserInterface> {
+    return await this.model.findOne({ userName });
   }
 
   async update(id: string, userDTO: UserDTO): Promise<UserInterface> {
