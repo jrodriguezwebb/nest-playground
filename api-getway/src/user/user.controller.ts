@@ -1,3 +1,9 @@
+import { ApiTags } from '@nestjs/swagger';
+import { ClientProxySuperFlights } from 'src/common/proxy/client-proxy';
+import { Observable } from 'rxjs';
+import { UserDTO } from './dto/user.dto';
+import { UserInterface } from 'src/common/interfaces/user.interface';
+import { UserMsg } from 'src/common/constants';
 import {
   Body,
   Controller,
@@ -7,12 +13,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { UserMsg } from 'src/common/constants';
-import { UserInterface } from 'src/common/interfaces/user.interface';
-import { ClientProxySuperFlights } from 'src/common/proxy/client-proxy';
-import { UserDTO } from './dto/user.dto';
 
+@ApiTags('users')
 @Controller('api/v2/user')
 export class UserController {
   constructor(private readonly clientProxy: ClientProxySuperFlights) {}
