@@ -12,9 +12,12 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @ApiTags('passanger')
+@UseGuards(JwtAuthGuard)
 @Controller('api/v2/passenger')
 export class PassangerController {
   constructor(private readonly clientProxy: ClientProxySuperFlights) {}

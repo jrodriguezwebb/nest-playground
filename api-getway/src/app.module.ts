@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { PassangerModule } from './passanger/passanger.module';
 import { FlightModule } from './flight/flight.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { FlightModule } from './flight/flight.module';
       envFilePath: ['.env.development'],
       isGlobal: true,
     }),
+    AuthModule,
     UserModule,
     PassangerModule,
     FlightModule,

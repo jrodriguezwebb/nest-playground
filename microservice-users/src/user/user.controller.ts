@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserMsg } from 'src/common/constants';
+import { UserInterface } from 'src/common/interfaces/user.interface';
 
 @Controller()
 export class UserController {
@@ -31,5 +32,17 @@ export class UserController {
   @MessagePattern(UserMsg.DELETE)
   delete(@Payload() id: string) {
     return this.userService.delete(id);
+  }
+
+  @MessagePattern(UserMsg.VALID_USER)
+  async validateUser(@Payload() payload: any) {
+    const user = await this.userService.findByUserName(payload.userName);
+    const isValidPassword = await this.userService.checkPassword(
+      payload.password,
+      user.password,
+    );
+
+    if (user && isValidPassword) return user;
+    return null;
   }
 }
