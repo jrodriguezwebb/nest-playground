@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 
 @ApiTags('passanger')
-@Controller('api/v2/passanger')
+@Controller('api/v2/passenger')
 export class PassangerController {
   constructor(private readonly clientProxy: ClientProxySuperFlights) {}
 
