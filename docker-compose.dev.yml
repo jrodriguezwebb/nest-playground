@@ -25,8 +25,11 @@ services:
     expose:
       - 27017
   app:
-    image: jrodriguezweb/app_vuelos:v2
+    image: app_vuelos:v2
     container_name: app_vuelos
+    build:
+      context: ./api-getway
+      dockerfile: Dockerfile
     env_file: .env
     ports:
       - 80:3000
@@ -39,8 +42,11 @@ services:
       - ms_nestjs
 
   microservice-flights:
-    image: jrodriguezweb/microservice-flights:v2
+    image: microservice-flights:v2
     container_name: microservice-flights
+    build:
+      context: ./microservice-flights
+      dockerfile: Dockerfile
     env_file: .env
     restart: always
     networks:
@@ -50,8 +56,11 @@ services:
       - rabbitmq
 
   microservice-passangers:
-    image: jrodriguezweb/microservice-passangers:v2
+    image: microservice-passangers:v2
     container_name: microservice-passangers
+    build:
+      context: ./microservice-passangers
+      dockerfile: Dockerfile
     env_file: .env
     restart: always
     networks:
@@ -61,8 +70,11 @@ services:
       - rabbitmq
 
   microservice-users:
-    image: jrodriguezweb/microservice-users:v2
+    image: microservice-users:v2
     container_name: microservice-users
+    build:
+      context: ./microservice-users
+      dockerfile: Dockerfile
     env_file: .env
     restart: always
     networks:
