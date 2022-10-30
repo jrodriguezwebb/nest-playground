@@ -1,6 +1,29 @@
 version: "3.7"
 
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rmq
+    expose:
+      - 5672
+      - 15672
+    restart: always
+    networks:
+      - ms_nestjs
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    networks:
+      - ms_nestjs
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - mongodb:/data/db
+    expose:
+      - 27017
   app:
     image: app_vuelos:v2
     container_name: app_vuelos
@@ -10,6 +33,7 @@ services:
     env_file: .env
     ports:
       - 80:3000
+      - "9229:9229"
     depends_on:
       - mongodb
       - rabbitmq
@@ -58,30 +82,6 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
-
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rmq
-    expose:
-      - 5672
-      - 15672
-    restart: always
-    networks:
-      - ms_nestjs
-
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    restart: always
-    networks:
-      - ms_nestjs
-    environment:
-      - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/dev/null
-    volumes:
-      - mongodb:/data/db
-    expose:
-      - 27017
 
 volumes:
   mongodb:

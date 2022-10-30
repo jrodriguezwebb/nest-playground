@@ -36,13 +36,14 @@ export class UserController {
 
   @MessagePattern(UserMsg.VALID_USER)
   async validateUser(@Payload() payload: any) {
+    if (!payload) return null;
     const user = await this.userService.findByUserName(payload.userName);
+    if (!user) return null;
     const isValidPassword = await this.userService.checkPassword(
       payload.password,
       user.password,
     );
-
-    if (user && isValidPassword) return user;
+    if (isValidPassword) return user;
     return null;
   }
 }
