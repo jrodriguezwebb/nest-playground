@@ -27,6 +27,9 @@ services:
   app:
     image: jrodriguezweb/app_vuelos:v2
     container_name: app_vuelos
+    build:
+      context: ./api-getway
+      dockerfile: Dockerfile
     env_file: .env
     ports:
       - 80:3000
@@ -41,6 +44,9 @@ services:
   microservice-flights:
     image: jrodriguezweb/microservice-flights:v2
     container_name: microservice-flights
+    build:
+      context: ./microservice-flights
+      dockerfile: Dockerfile
     env_file: .env
     restart: always
     networks:
@@ -63,6 +69,9 @@ services:
   microservice-users:
     image: jrodriguezweb/microservice-users:v2
     container_name: microservice-users
+    build:
+      context: ./microservice-users
+      dockerfile: Dockerfile
     env_file: .env
     restart: always
     networks:
